@@ -8,15 +8,18 @@ fi
 FOLDERNUMBER="$1"
 DESTPREFIX="/Volumes/MEMORYSTICK/MSSONY/HIFI/FOLDER"
 DEST=$DESTPREFIX$FOLDERNUMBER
+TEMPFOLDER=`mktemp -d "${TMPDIR:-/tmp}"/vandythard.XXXX`
 
-flac -d *.flac
+echo "Temp folder:" $TEMPFOLDER 
+flac --output-prefix=${TEMPFOLDER}/ -d *.flac
 echo "Finished decoding"
 
 echo "Copying .wav files to" $DEST
-cp *.wav $DEST
+rm $DEST/*.wav
+cp $TEMPFOLDER/*.wav $DEST
 echo "Finished copying"
 
-rm *.wav
+rm -rf $TEMPFOLDER
 
 # Delete any apple hidden files from the destination
 find $DEST -name ._* -exec rm -rf {} \;
