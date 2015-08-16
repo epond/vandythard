@@ -1,20 +1,23 @@
 #!/bin/bash
 
 if [ "$#" -ne 1 ]; then
-    echo "Usage: vandythard <destination>"
+    echo "Usage: vandythard <foldernumber>"
     exit 0
 fi
 
-DEST="$1"
+FOLDERNUMBER="$1"
+DESTPREFIX="/Volumes/MEMORYSTICK/MSSONY/HIFI/FOLDER"
+DEST=$DESTPREFIX$FOLDERNUMBER
 
 flac -d *.flac
+echo "Finished decoding"
 
-echo "*** Finished decoding ***"
-
-echo "*** Copying .wav files to " $DEST " ***"
-
+echo "Copying .wav files to" $DEST
 cp *.wav $DEST
-
-echo "*** Finished copying ***"
+echo "Finished copying"
 
 rm *.wav
+
+# Delete any apple hidden files from the destination
+find $DEST -name ._* -exec rm -rf {} \;
+find $DEST -name .DS* -exec rm -rf {} \;
