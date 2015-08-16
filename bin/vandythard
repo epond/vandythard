@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: vandythard <destination>"
+    exit 0
+fi
+
+DEST="$1"
+
+flac -d *.flac
+
+echo "*** Finished decoding ***"
+
+echo "*** Copying .wav files to " $DEST " ***"
+
+cp *.wav $DEST
+
+echo "*** Finished copying ***"
+
+rm *.wav
