@@ -4,4 +4,6 @@ It will process all flac files in the current directory but decoding wav files t
 directory, copying these to the destination and then deleting them in the current directory.
 Should probably use a temp dir instead.
 
+```
 Usage: vandythard <folder number>
+```
